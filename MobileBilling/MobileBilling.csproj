@@ -42,6 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BillingEngine.cs" />
+    <Compile Include="Models\Bill.cs" />
+    <Compile Include="Models\CallDetails.cs" />
+    <Compile Include="Models\CDR.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
