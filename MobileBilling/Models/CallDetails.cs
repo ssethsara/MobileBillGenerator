@@ -13,6 +13,34 @@ namespace MobileBilling.Models
         string destinationNumber;
         double charge;
 
+        public CallDetails(TimeSpan startTime, int duration, string destinationNumber, double charge)
+        {
+            this.startTime = startTime;
+            this.duration = duration;
+            this.destinationNumber = destinationNumber;
+            this.charge = charge;
+        }
 
+        public TimeSpan GetStartTime()
+        {
+            return startTime;
+        }
+
+        public int GetDuration()
+        {
+            return duration;
+        }
+
+        public string GetDestinationNumber()
+        {
+            return destinationNumber;
+        }
+
+        public double GetCharge()
+        {
+            return charge;
+        }
     }
+
+   
 }

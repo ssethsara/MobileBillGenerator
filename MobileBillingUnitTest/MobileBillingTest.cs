@@ -343,5 +343,86 @@ namespace MobileBillingUnitTest
 
         }
 
+
+
+        /////
+        ///Tax calculation Testing
+        ///
+        [TestMethod]
+        public void OnGenerate_withOffPeakLongDistanceCall1MinutesAndTax_ShouldAddTaxAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), 60);
+
+            double expected = 20.6;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetTax());
+
+
+        }
+
+
+        [TestMethod]
+        public void OnGenerate_withOffPeakLongDistanceCall20MinutesAndTax_ShouldAddTaxAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), 1200);
+
+            double expected = 32;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetTax());
+
+
+        }
+
+        [TestMethod]
+        public void OnGenerate_withOffPeakLongDistanceCall20SecondAndTax_ShouldAddTaxAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), 20);
+
+            double expected = 20.6;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetTax());
+
+
+        }
+
+
+        [TestMethod]
+        public void OnGenerate_withOffPeakLongDistanceCall1Minutes_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), 20);
+
+            double expected = 20.6+100+3;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
+
+
+
+        //Add CallDetails
+
+       
+
     }
 }

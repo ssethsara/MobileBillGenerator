@@ -9,12 +9,12 @@ namespace MobileBilling.Models
     public class Bill
     {
         Customer customerDetails;
-        double TotalCallCharges;
-        double TotalDiscount;
-        double Tax;
+        double totalCallCharges;
+        double totalDiscount;
+        double tax;
         double rental;
         double amount;
-        List<CallDetails> callDetails;
+        List<CallDetails> callDetails=new List<CallDetails>();
 
 
         public Bill(Customer customerDetails)
@@ -28,19 +28,19 @@ namespace MobileBilling.Models
             this.customerDetails = customerDetails;
         }
 
-        public void SetTotalCallChagers(double TotalCallCharges)
+        public void SetTotalCallChagers(double totalCallCharges)
         {
-            this.TotalCallCharges = TotalCallCharges;
+            this.totalCallCharges = totalCallCharges;
         }
 
-        public void SetTotalDiscount(double TotalDiscount)
+        public void SetTotalDiscount(double totalDiscount)
         {
-            this.TotalDiscount = TotalDiscount;
+            this.totalDiscount = totalDiscount;
         }
 
-        public void SetTax(double Tax)
+        public void SetTax(double tax)
         {
-            this.Tax = Tax;
+            this.tax = tax;
         }
 
         public void SetRental(double rental)
@@ -53,9 +53,9 @@ namespace MobileBilling.Models
             this.amount = amount;
         }
 
-        public void SetCallDetails(List<CallDetails> callDetails)
+        public void SetCallDetails(CallDetails callDetail)
         {
-            this.callDetails = callDetails;
+            callDetails.Add(callDetail);
         }
 
 
@@ -66,9 +66,23 @@ namespace MobileBilling.Models
 
         public double GetTotalCallCharge()
         {
-            return TotalCallCharges;
+            return totalCallCharges;
         }
 
+        public double GetRental()
+        {
+            return rental;
+        }
+
+        public double GetTax()
+        {
+            return tax;
+        }
+
+        public double GetAmount()
+        {
+            return amount;
+        }
 
 
     }

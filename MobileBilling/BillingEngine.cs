@@ -18,6 +18,8 @@ namespace MobileBilling
         int OffpeakLocalCharge = 2;
         int OffpeakLongDistCharge = 4;
 
+        double taxRate = 0.2;
+
         public Customer AddCustomer(String Fullname, string BillingAddress, string PhoneNumber, int PackageCode, DateTime dateRegistered)
         {
 
@@ -52,14 +54,23 @@ namespace MobileBilling
         public Bill Generate()
         {
             Bill customerBill = new Bill(customer);
+            customerBill.SetRental(100);
+            double totalCharge = 0;
             foreach (var call in listOfCalls)
             {
                 if (call.GetSubscribeNumber() == customer.getPhoneNumber())
                 {
-                    customerBill.SetTotalCallChagers(CalculateCharges(call));
+                    double calculatedCharge = CalculateCharges(call);
+                    totalCharge = totalCharge+ calculatedCharge;
+                    CallDetails detail = new CallDetails(call.GetStartTime(), call.GetDuration(), call.GetRecieveNumber(), calculatedCharge);
+                    customerBill.SetCallDetails(detail);
+
                 }
             }
 
+            customerBill.SetTotalCallChagers(totalCharge);
+            customerBill.SetTax(CalculateTax(customerBill.GetTotalCallCharge(), customerBill.GetRental()));
+            customerBill.SetAmount(CalculateTotalAmount(customerBill.GetTotalCallCharge(), customerBill.GetRental(), customerBill.GetTax()));
             Console.WriteLine(customerBill.GetTotalCallCharge());
 
             return customerBill;
@@ -126,6 +137,23 @@ namespace MobileBilling
             }
 
             return false;
+        }
+
+
+
+        double CalculateTax(double totalCallCharge,double rental)
+        {
+
+            return ((totalCallCharge + rental) * taxRate);
+
+        }
+
+
+        double CalculateTotalAmount(double totalCallCharge, double rental,double tax)
+        {
+
+            return totalCallCharge +rental+tax;
+
         }
     }
 

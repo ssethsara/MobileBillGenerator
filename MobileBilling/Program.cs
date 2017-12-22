@@ -14,9 +14,9 @@ namespace MobileBilling
 
             BillingEngine _but = new BillingEngine();
             _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
-            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), 30);
-            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(08, 00, 00), 15);
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), 60);
 
+            
             //Act
             Bill actual = _but.Generate();
         }
