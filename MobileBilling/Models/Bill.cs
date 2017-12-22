@@ -64,6 +64,10 @@ namespace MobileBilling.Models
             return customerDetails;
         }
 
+        public double GetTotalCallCharge()
+        {
+            return TotalCallCharges;
+        }
 
 
 

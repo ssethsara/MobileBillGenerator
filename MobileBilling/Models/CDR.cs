@@ -8,13 +8,13 @@ namespace MobileBilling.Models
 {
     public class CDR
     {
-         int SubscribeNumber;
-         int recieveNumber;
+        string SubscribeNumber;
+        string recieveNumber;
          TimeSpan startTime;
          int duration;
 
 
-        public CDR(int SubscribeNumber, int recieveNumber, TimeSpan startTime, int duration)
+        public CDR(string SubscribeNumber, string recieveNumber, TimeSpan startTime, int duration)
         {
             this.SubscribeNumber= SubscribeNumber;
             this.recieveNumber= recieveNumber;
@@ -23,12 +23,12 @@ namespace MobileBilling.Models
         }
 
 
-        public int GetSubscribeNumber()
+        public string GetSubscribeNumber()
         {
             return SubscribeNumber;
         }
 
-        public int GetRecieveNumber()
+        public string GetRecieveNumber()
         {
             return recieveNumber;
         }

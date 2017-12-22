@@ -10,7 +10,7 @@ namespace MobileBilling.Models
     {
         TimeSpan startTime;
         int duration;
-        int destinationNumber;
+        string destinationNumber;
         double charge;
 
 

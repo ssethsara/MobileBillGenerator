@@ -11,8 +11,14 @@ namespace MobileBilling
     {
         Customer customer;
         List<CDR> listOfCalls = new List<CDR>();
+        TimeSpan peakTimeStart = new TimeSpan(08, 00, 00);
+        TimeSpan peakTimeEnd = new TimeSpan(20, 00, 00);
+        int peakLocalCharge = 3;
+        int peakLongDistCharge = 5;
+        int OffpeakLocalCharge = 2;
+        int OffpeakLongDistCharge = 4;
 
-        public Customer AddCustomer(String Fullname, string BillingAddress, int PhoneNumber, int PackageCode,DateTime dateRegistered)
+        public Customer AddCustomer(String Fullname, string BillingAddress, string PhoneNumber, int PackageCode, DateTime dateRegistered)
         {
 
             customer = new Customer(Fullname, BillingAddress, PhoneNumber, PackageCode, dateRegistered);
@@ -29,7 +35,7 @@ namespace MobileBilling
             return listOfCalls;
         }
 
-        public CDR SetCDR(int SubscribeNumber, int recieveNumber, TimeSpan startTime, int Duration)
+        public CDR SetCDR(string SubscribeNumber, string recieveNumber, TimeSpan startTime, int Duration)
         {
             CDR call = new CDR(SubscribeNumber, recieveNumber, startTime, Duration);
             listOfCalls.Add(call);
@@ -46,8 +52,86 @@ namespace MobileBilling
         public Bill Generate()
         {
             Bill customerBill = new Bill(customer);
+            foreach (var call in listOfCalls)
+            {
+                if (call.GetSubscribeNumber() == customer.getPhoneNumber())
+                {
+                    customerBill.SetTotalCallChagers(CalculateCharges(call));
+                }
+            }
+
+            Console.WriteLine(customerBill.GetTotalCallCharge());
 
             return customerBill;
         }
-    } 
+
+
+
+
+        Boolean CheckPeakTime(TimeSpan calledTime)
+        {
+            if (calledTime >= peakTimeStart && calledTime < peakTimeEnd)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        double CalculateCharges(CDR call)
+        {
+     
+            int DurationMin= call.GetDuration()/60;
+            if ((call.GetDuration() % 60) !=0)
+            {
+                DurationMin++;
+            }
+
+            if (CheckIsLocalCall(call.GetSubscribeNumber(), call.GetRecieveNumber()))
+            {
+                if (CheckPeakTime(call.GetStartTime()))
+                {
+                    return DurationMin * peakLocalCharge;
+                }
+                else
+                {
+                    return DurationMin * OffpeakLocalCharge;
+                }
+            }
+            else
+            {
+                if (CheckPeakTime(call.GetStartTime()))
+                {
+                    return DurationMin * peakLongDistCharge;
+                }
+                else
+                {
+                    return DurationMin * OffpeakLongDistCharge;
+                }
+            }
+            
+
+
+        }
+
+
+        Boolean CheckIsLocalCall(string subscriberNumber,string recieverNumber)
+        {
+            string subscribersFirstThreeDigits = subscriberNumber.Split('-')[0];
+            string recieversFirstThreeDigits = recieverNumber.Split('-')[0];
+
+            if (subscribersFirstThreeDigits== recieversFirstThreeDigits)
+            {
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+
+
+
+    
 }
+
