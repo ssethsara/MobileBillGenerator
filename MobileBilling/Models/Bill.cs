@@ -85,5 +85,29 @@ namespace MobileBilling.Models
         }
 
 
+        public void Display()
+        {
+            Console.WriteLine("Phone Number:" + customerDetails.getPhoneNumber());
+            Console.WriteLine("Billing Address:" + customerDetails.getBillingAddress());
+            Console.WriteLine("________________________________________________________");
+            Console.WriteLine("");
+            Console.WriteLine("Total Call Chargers:" + totalCallCharges);
+            Console.WriteLine("Tax:" + tax);
+            Console.WriteLine("Rental:" + rental);
+            Console.WriteLine("--------------------------------------------------------");
+            Console.WriteLine("Bill Amount:" + amount);
+            Console.WriteLine("--------------------------------------------------------");
+            Console.WriteLine("");
+            Console.WriteLine("Call Details");
+            Console.WriteLine("________________________________________________________");
+            foreach(var callDetail in callDetails)
+            {
+                callDetail.Display();
+                Console.WriteLine("");
+            }
+            
+
+        }
+
     }
 }

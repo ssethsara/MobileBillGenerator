@@ -71,7 +71,7 @@ namespace MobileBilling
             customerBill.SetTotalCallChagers(totalCharge);
             customerBill.SetTax(CalculateTax(customerBill.GetTotalCallCharge(), customerBill.GetRental()));
             customerBill.SetAmount(CalculateTotalAmount(customerBill.GetTotalCallCharge(), customerBill.GetRental(), customerBill.GetTax()));
-            Console.WriteLine(customerBill.GetTotalCallCharge());
+           
 
             return customerBill;
         }

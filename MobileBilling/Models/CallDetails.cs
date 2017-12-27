@@ -40,6 +40,15 @@ namespace MobileBilling.Models
         {
             return charge;
         }
+
+
+        public void Display()
+        {
+            Console.WriteLine("start Time:"+startTime);
+            Console.WriteLine("Duration:" + duration+" Seconds");
+            Console.WriteLine("Destination number:" + destinationNumber);
+            Console.WriteLine("Charge:" + charge);
+        }
     }
 
    
