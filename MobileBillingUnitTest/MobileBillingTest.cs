@@ -487,9 +487,93 @@ namespace MobileBillingUnitTest
 
         }
 
-        //Add CallDetails
+        //Off peak to peak Local call
+
+        [TestMethod]
+        public void OnGenerate_withOffpeakToPeakLocalCall_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(7, 59, 00), (60*4));
+
+            double totalCharge = 100 + (1*2)+ (3 * 3);
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
 
 
+        }
+
+
+        //peak to off peak Local call
+
+        [TestMethod]
+        public void OnGenerate_withpeakToPeakOffLocalCall_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(19, 59, 00), (60 * 4));
+
+            double totalCharge = 100 + (1 * 3) + (3 * 2);
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
+
+
+
+        //Off peak to peak Long Distance call
+
+        [TestMethod]
+        public void OnGenerate_withOffpeakToPeakLongDistanceCall_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(7, 59, 00), (60 * 4));
+
+            double totalCharge = 100 + (1 * 4) + (3 * 5);
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
+
+
+        //peak to off peak Local call
+
+        [TestMethod]
+        public void OnGenerate_withpeakToPeakOffLongDistanceCall_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(19, 59, 00), (60 * 4));
+
+            double totalCharge = 100 + (1 * 5) + (3 * 4);
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
 
     }
 }

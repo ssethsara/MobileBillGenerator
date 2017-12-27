@@ -18,6 +18,8 @@ namespace MobileBilling
         int OffpeakLocalCharge = 2;
         int OffpeakLongDistCharge = 4;
 
+       
+
         double taxRate = 0.2;
 
         public Customer AddCustomer(String Fullname, string BillingAddress, string PhoneNumber, int PackageCode, DateTime dateRegistered)
@@ -42,9 +44,6 @@ namespace MobileBilling
             CDR call = new CDR(SubscribeNumber, recieveNumber, startTime, Duration);
             listOfCalls.Add(call);
 
-
-
-
             return call;
         }
 
@@ -67,11 +66,9 @@ namespace MobileBilling
 
                 }
             }
-
             customerBill.SetTotalCallChagers(totalCharge);
             customerBill.SetTax(CalculateTax(customerBill.GetTotalCallCharge(), customerBill.GetRental()));
             customerBill.SetAmount(CalculateTotalAmount(customerBill.GetTotalCallCharge(), customerBill.GetRental(), customerBill.GetTax()));
-           
 
             return customerBill;
         }
@@ -79,51 +76,50 @@ namespace MobileBilling
 
 
 
-        Boolean CheckPeakTime(TimeSpan calledTime)
+        double CheckPeakTime(TimeSpan calledTime,int durationMin,Boolean localCall)
         {
-            if (calledTime >= peakTimeStart && calledTime < peakTimeEnd)
+            double charges = 0;
+           for(int a = 0; a < durationMin; a++)
             {
-                return true;
+                if(calledTime<peakTimeEnd && calledTime >= peakTimeStart)
+                {
+                    if (localCall)
+                        charges = charges+ peakLocalCharge;
+                    else
+                        charges = charges + peakLongDistCharge;
+                }
+                else
+                {
+                    if (localCall)
+                        charges = charges + OffpeakLocalCharge;
+                    else
+                        charges = charges + OffpeakLongDistCharge;
+                }
+                calledTime= calledTime+new TimeSpan(0, 1, 0);
             }
-            return false;
+            return charges;
         }
 
 
         double CalculateCharges(CDR call)
         {
-     
-            int DurationMin= call.GetDuration()/60;
+            int durationMin= call.GetDuration()/60;
             if ((call.GetDuration() % 60) !=0)
             {
-                DurationMin++;
+                durationMin++;
             }
-
             if (CheckIsLocalCall(call.GetSubscribeNumber(), call.GetRecieveNumber()))
             {
-                if (CheckPeakTime(call.GetStartTime()))
-                {
-                    return DurationMin * peakLocalCharge;
-                }
-                else
-                {
-                    return DurationMin * OffpeakLocalCharge;
-                }
+                return CheckPeakTime(call.GetStartTime(), durationMin,true);
             }
             else
             {
-                if (CheckPeakTime(call.GetStartTime()))
-                {
-                    return DurationMin * peakLongDistCharge;
-                }
-                else
-                {
-                    return DurationMin * OffpeakLongDistCharge;
-                }
+                return CheckPeakTime(call.GetStartTime(), durationMin, false);
             }
-            
-
-
         }
+
+      
+
 
 
         Boolean CheckIsLocalCall(string subscriberNumber,string recieverNumber)
@@ -135,7 +131,6 @@ namespace MobileBilling
             {
                 return true;
             }
-
             return false;
         }
 
@@ -143,23 +138,14 @@ namespace MobileBilling
 
         double CalculateTax(double totalCallCharge,double rental)
         {
-
             return ((totalCallCharge + rental) * taxRate);
-
         }
 
 
         double CalculateTotalAmount(double totalCallCharge, double rental,double tax)
         {
-
             return totalCallCharge +rental+tax;
-
         }
     }
-
-
-
-
-    
 }
 
