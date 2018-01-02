@@ -20,7 +20,6 @@ namespace MobileBilling.Models
         public Bill(Customer customerDetails)
         {
             this.customerDetails = customerDetails;
-        
         }
 
         public void SetCustomerDetails(Customer customerDetails)

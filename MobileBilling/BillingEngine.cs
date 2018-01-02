@@ -13,19 +13,25 @@ namespace MobileBilling
         List<CDR> listOfCalls = new List<CDR>();
         TimeSpan peakTimeStart = new TimeSpan(08, 00, 00);
         TimeSpan peakTimeEnd = new TimeSpan(20, 00, 00);
-        int peakLocalCharge = 3;
-        int peakLongDistCharge = 5;
-        int OffpeakLocalCharge = 2;
-        int OffpeakLongDistCharge = 4;
+        int packageA_PeakLocalCharge = 3;
+        int packageA_PeakLongDistCharge = 5;
+        int packageA_OffpeakLocalCharge = 2;
+        int packageA_OffpeakLongDistCharge = 4;
 
-       
+
+        int packageB_PeakLocalCharge = 4;
+        int packageB_PeakLongDistCharge = 6;
+        int packageB_OffpeakLocalCharge = 3;
+        int packageB_OffpeakLongDistCharge = 5;
+
+
 
         double taxRate = 0.2;
 
-        public Customer AddCustomer(String Fullname, string BillingAddress, string PhoneNumber, int PackageCode, DateTime dateRegistered)
+        public Customer AddCustomer(String Fullname, string BillingAddress, string PhoneNumber, char Package, DateTime dateRegistered)
         {
 
-            customer = new Customer(Fullname, BillingAddress, PhoneNumber, PackageCode, dateRegistered);
+            customer = new Customer(Fullname, BillingAddress, PhoneNumber, Package, dateRegistered);
             return customer;
         }
 
@@ -48,8 +54,6 @@ namespace MobileBilling
         }
 
 
-
-
         public Bill Generate()
         {
             Bill customerBill = new Bill(customer);
@@ -60,7 +64,7 @@ namespace MobileBilling
                 if (call.GetSubscribeNumber() == customer.getPhoneNumber())
                 {
                     double calculatedCharge = CalculateCharges(call);
-                    totalCharge = totalCharge+ calculatedCharge;
+                    totalCharge = totalCharge + calculatedCharge;
                     CallDetails detail = new CallDetails(call.GetStartTime(), call.GetDuration(), call.GetRecieveNumber(), calculatedCharge);
                     customerBill.SetCallDetails(detail);
 
@@ -76,49 +80,62 @@ namespace MobileBilling
 
 
 
-        double CheckPeakTime(TimeSpan calledTime,int durationMin,Boolean localCall)
-        {
-            double charges = 0;
-           for(int a = 0; a < durationMin; a++)
-            {
-                if(calledTime<peakTimeEnd && calledTime >= peakTimeStart)
-                {
-                    if (localCall)
-                        charges = charges+ peakLocalCharge;
-                    else
-                        charges = charges + peakLongDistCharge;
-                }
-                else
-                {
-                    if (localCall)
-                        charges = charges + OffpeakLocalCharge;
-                    else
-                        charges = charges + OffpeakLongDistCharge;
-                }
-                calledTime= calledTime+new TimeSpan(0, 1, 0);
-            }
-            return charges;
-        }
 
 
         double CalculateCharges(CDR call)
         {
-            int durationMin= call.GetDuration()/60;
-            if ((call.GetDuration() % 60) !=0)
+            int durationSec = call.GetDuration();
+            int durationMin= durationSec / 60;
+            if ((durationSec % 60) !=0)
             {
                 durationMin++;
             }
-            if (CheckIsLocalCall(call.GetSubscribeNumber(), call.GetRecieveNumber()))
+            if (customer.getPackage() == 'A')
             {
-                return CheckPeakTime(call.GetStartTime(), durationMin,true);
+                if (CheckIsLocalCall(call.GetSubscribeNumber(), call.GetRecieveNumber()))
+                {
+                    return CheckPeakTimePackageA(call.GetStartTime(), durationMin, true);
+                }
+                else
+                {
+                    return CheckPeakTimePackageA(call.GetStartTime(), durationMin, false);
+                }
             }
-            else
+            else if (customer.getPackage() == 'B')
             {
-                return CheckPeakTime(call.GetStartTime(), durationMin, false);
+                if (CheckIsLocalCall(call.GetSubscribeNumber(), call.GetRecieveNumber()))
+                {
+                    return CheckPeakTimePackageB(call.GetStartTime(), durationSec, true);
+                }
+                else
+                {
+                    return CheckPeakTimePackageB(call.GetStartTime(), durationSec, false);
+                }
             }
+            return 0;
+
         }
 
-      
+
+
+
+        //double CalculateCharges(CDR call)
+        //{
+        //    int durationMin = call.GetDuration() / 60;
+        //    if ((call.GetDuration() % 60) != 0)
+        //    {
+        //        durationMin++;
+        //    }
+        //    if (CheckIsLocalCall(call.GetSubscribeNumber(), call.GetRecieveNumber()))
+        //    {
+        //        return CheckPeakTime(call.GetStartTime(), durationMin, true);
+        //    }
+        //    else
+        //    {
+        //        return CheckPeakTime(call.GetStartTime(), durationMin, false);
+        //    }
+        //}
+
 
 
 
@@ -134,6 +151,56 @@ namespace MobileBilling
             return false;
         }
 
+
+
+        double CheckPeakTimePackageA(TimeSpan calledTime, int durationMin, Boolean localCall)
+        {
+            double charges = 0;
+            for (int a = 0; a < durationMin; a++)
+            {
+                if (calledTime < peakTimeEnd && calledTime >= peakTimeStart)
+                {
+                    if (localCall)
+                        charges = charges + packageA_PeakLocalCharge;
+                    else
+                        charges = charges + packageA_PeakLongDistCharge;
+                }
+                else
+                {
+                    if (localCall)
+                        charges = charges + packageA_OffpeakLocalCharge;
+                    else
+                        charges = charges + packageA_OffpeakLongDistCharge;
+                }
+                calledTime = calledTime + new TimeSpan(0, 1, 0);
+            }
+            return charges;
+        }
+
+
+        double CheckPeakTimePackageB(TimeSpan calledTime, int durationSec, Boolean localCall)
+        {
+            double charges = 0;
+            for (int a = 0; a < durationSec; a++)
+            {
+                if (calledTime < peakTimeEnd && calledTime >= peakTimeStart)
+                {
+                    if (localCall)
+                        charges = charges + (double)packageB_PeakLocalCharge /60;
+                    else
+                        charges = charges + (double)packageB_PeakLongDistCharge / 60;
+                }
+                else
+                {
+                    if (localCall)
+                        charges = charges + (double)packageB_OffpeakLocalCharge / 60;
+                    else
+                        charges = charges + (double)packageB_OffpeakLongDistCharge / 60;
+                }
+                calledTime = calledTime + new TimeSpan(0, 0, 1);
+            }
+            return Math.Round(charges,1);
+        }
 
 
         double CalculateTax(double totalCallCharge,double rental)

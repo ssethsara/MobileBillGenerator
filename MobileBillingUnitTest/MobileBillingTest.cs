@@ -20,16 +20,16 @@ namespace MobileBillingUnitTest
         public void OnaddCustomer_withCustomerData_ShouldCoustomerDetails()
         {
             //Arrange
-            Customer actual= _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-9283743", 1,new DateTime(17,12,23));
+            Customer actual= _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-9283743", 'A', new DateTime(17,12,23));
             //Act
-            Customer expected = new Customer("Supun Sethsara", "No:123,Colombo", "071-9283743", 1, new DateTime(17, 12, 23));
+            Customer expected = new Customer("Supun Sethsara", "No:123,Colombo", "071-9283743", 'A', new DateTime(17, 12, 23));
        
             //Assert
 
             Assert.AreEqual(expected.getFullname(), actual.getFullname());
             Assert.AreEqual(expected.getBillingAddress(), actual.getBillingAddress());
             Assert.AreEqual(expected.getPhoneNumber(), actual.getPhoneNumber());
-            Assert.AreEqual(expected.getPackageCode(), actual.getPackageCode());
+            Assert.AreEqual(expected.getPackage(), actual.getPackage());
             Assert.AreEqual(expected.getRegisteredDate(), actual.getRegisteredDate());
 
         }
@@ -72,7 +72,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            Customer expected=_but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            Customer expected=_but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), 30);
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(08, 00, 00), 15);
 
@@ -82,7 +82,7 @@ namespace MobileBillingUnitTest
             Assert.AreEqual(expected.getFullname(), actual.GetCustomer().getFullname());
             Assert.AreEqual(expected.getBillingAddress(), actual.GetCustomer().getBillingAddress());
             Assert.AreEqual(expected.getPhoneNumber(), actual.GetCustomer().getPhoneNumber());
-            Assert.AreEqual(expected.getPackageCode(), actual.GetCustomer().getPackageCode());
+            Assert.AreEqual(expected.getPackage(), actual.GetCustomer().getPackage());
             Assert.AreEqual(expected.getRegisteredDate(), actual.GetCustomer().getRegisteredDate());
 
         }
@@ -96,7 +96,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), 60);
 
             double expected = 3;
@@ -113,7 +113,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), 240);
 
             double expected = 12;
@@ -130,7 +130,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), 20);
 
             double expected = 3;
@@ -147,7 +147,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), 260);
 
             double expected = 15;
@@ -169,7 +169,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(20, 00, 00), 60);
 
             double expected = 2;
@@ -186,7 +186,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(20, 00, 00), 240);
 
             double expected = 8;
@@ -203,7 +203,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(20, 00, 00), 20);
 
             double expected = 2;
@@ -220,7 +220,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(20, 00, 00), 260);
 
             double expected = 10;
@@ -241,7 +241,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(12, 00, 00), 60);
 
             double expected = 5;
@@ -258,7 +258,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(12, 00, 00), 20);
 
             double expected = 5;
@@ -275,7 +275,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(08, 00, 00), 140);
 
             double expected = 15;
@@ -296,7 +296,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(20, 00, 00), 60);
 
             double expected = 4;
@@ -313,7 +313,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(20, 00, 00), 20);
 
             double expected = 4;
@@ -331,7 +331,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(20, 00, 00), 140);
 
             double expected = 12;
@@ -353,7 +353,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), 60);
 
             double expected = 20.6;
@@ -371,7 +371,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), 1200);
 
             double expected = 32;
@@ -388,7 +388,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), 20);
 
             double expected = 20.6;
@@ -406,7 +406,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), 20);
 
             double expected = 20.6+100+3;
@@ -425,7 +425,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), 20);
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), 20);
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), 20);
@@ -446,7 +446,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), (60*3));
             _but.SetCDR("071-0000000", "073-1111111", new TimeSpan(20, 00, 00), (60 * 5));
             _but.SetCDR("071-0000000", "074-1111111", new TimeSpan(8, 00, 00), (60 * 3));
@@ -468,7 +468,7 @@ namespace MobileBillingUnitTest
 
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), (60 * 3));
             _but.SetCDR("071-0000000", "073-1111111", new TimeSpan(20, 00, 00), (60 * 5));
             _but.SetCDR("071-0000000", "074-1111111", new TimeSpan(8, 00, 00), (60 * 3));
@@ -494,7 +494,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(7, 59, 00), (60*4));
 
             double totalCharge = 100 + (1*2)+ (3 * 3);
@@ -516,7 +516,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(19, 59, 00), (60 * 4));
 
             double totalCharge = 100 + (1 * 3) + (3 * 2);
@@ -539,7 +539,7 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(7, 59, 00), (60 * 4));
 
             double totalCharge = 100 + (1 * 4) + (3 * 5);
@@ -561,10 +561,112 @@ namespace MobileBillingUnitTest
         {
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 1, new DateTime(17, 12, 23));
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(19, 59, 00), (60 * 4));
 
             double totalCharge = 100 + (1 * 5) + (3 * 4);
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
+
+
+
+
+
+        ///////Package B test/////
+
+        [TestMethod]
+        public void OnGenerate_withPackageBLocalCall_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'B', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(09, 00, 00), 60);
+
+            double totalCharge = 100 + 4;
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
+
+        [TestMethod]
+        public void OnGenerate_withPackageBPeekLongDistanceCall_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'B', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(09, 00, 00), 60);
+
+            double totalCharge = 100 +6;
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
+
+        [TestMethod]
+        public void OnGenerate_withPackageBOffPeekLocalCall_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'B', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(21, 00, 00), 60);
+
+            double totalCharge = 100 + 3;
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
+
+        [TestMethod]
+        public void OnGenerate_withPackageBOffPeekLongDistanceCall_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'B', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(21, 00, 00), 60);
+
+            double totalCharge = 100 + 5;
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
+
+
+        [TestMethod]
+        public void OnGenerate_withPackageBOffPeekLongDistanceCallPeekToOffPeek_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'B', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(19, 59, 30), 60);
+
+            double totalCharge = 100 + (4*0.5)+(3*0.5);
             double tax = totalCharge * 0.2;
             double expected = totalCharge + tax;
             //Act

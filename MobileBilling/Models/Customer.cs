@@ -11,15 +11,15 @@ namespace MobileBilling.Models
          string Fullname;
          string BillingAddress;
          string PhoneNumber;
-         int PackageCode;
+         char Package;
          DateTime RegisteredDate;
 
-        public Customer(string Fullname, string BillingAddress, string PhoneNumber, int PackageCode, DateTime RegisteredDate)
+        public Customer(string Fullname, string BillingAddress, string PhoneNumber, char PackageCode, DateTime RegisteredDate)
         {
             this.Fullname= Fullname;
             this.BillingAddress=BillingAddress;
             this.PhoneNumber=PhoneNumber;
-            this.PackageCode=PackageCode;
+            this.Package=PackageCode;
             this.RegisteredDate=RegisteredDate;
         }
 
@@ -39,9 +39,9 @@ namespace MobileBilling.Models
             return PhoneNumber;
         }
 
-        public int getPackageCode()
+        public char getPackage()
         {
-            return PackageCode;
+            return Package;
         }
 
         public DateTime getRegisteredDate()
