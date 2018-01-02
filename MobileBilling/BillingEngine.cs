@@ -81,7 +81,6 @@ namespace MobileBilling
 
 
 
-
         double CalculateCharges(CDR call)
         {
             int durationSec = call.GetDuration();
@@ -116,29 +115,6 @@ namespace MobileBilling
 
         }
 
-
-
-
-        //double CalculateCharges(CDR call)
-        //{
-        //    int durationMin = call.GetDuration() / 60;
-        //    if ((call.GetDuration() % 60) != 0)
-        //    {
-        //        durationMin++;
-        //    }
-        //    if (CheckIsLocalCall(call.GetSubscribeNumber(), call.GetRecieveNumber()))
-        //    {
-        //        return CheckPeakTime(call.GetStartTime(), durationMin, true);
-        //    }
-        //    else
-        //    {
-        //        return CheckPeakTime(call.GetStartTime(), durationMin, false);
-        //    }
-        //}
-
-
-
-
         Boolean CheckIsLocalCall(string subscriberNumber,string recieverNumber)
         {
             string subscribersFirstThreeDigits = subscriberNumber.Split('-')[0];
@@ -151,6 +127,14 @@ namespace MobileBilling
             return false;
         }
 
+        bool CheckPeakTime(TimeSpan calledTime)
+        {
+                if (calledTime < peakTimeEnd && calledTime >= peakTimeStart)
+                {
+                    return true;
+                }
+            return false;
+        }
 
 
         double CheckPeakTimePackageA(TimeSpan calledTime, int durationMin, Boolean localCall)
@@ -158,7 +142,7 @@ namespace MobileBilling
             double charges = 0;
             for (int a = 0; a < durationMin; a++)
             {
-                if (calledTime < peakTimeEnd && calledTime >= peakTimeStart)
+                if (CheckPeakTime(calledTime))
                 {
                     if (localCall)
                         charges = charges + packageA_PeakLocalCharge;
@@ -183,7 +167,7 @@ namespace MobileBilling
             double charges = 0;
             for (int a = 0; a < durationSec; a++)
             {
-                if (calledTime < peakTimeEnd && calledTime >= peakTimeStart)
+                if (CheckPeakTime(calledTime))
                 {
                     if (localCall)
                         charges = charges + (double)packageB_PeakLocalCharge /60;
