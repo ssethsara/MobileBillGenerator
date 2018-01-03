@@ -19,9 +19,9 @@ namespace MobileBilling.PackageCalculations
 
         public double packagechargersCalculation(CDR call)
         {
-            int peaktime= check.PeekCallduraion(call);
+            int peektime= check.PeekCallduraion(call);
             bool isLocal = check.IsLocalCall(call.GetSubscribeNumber(), call.GetRecieveNumber());
-            double chargers = CalculateChargers(peaktime, call.GetDuration(), isLocal);
+            double chargers = CalculateChargers(peektime, call.GetDuration(), isLocal);
             return chargers;
         }
 
@@ -29,32 +29,22 @@ namespace MobileBilling.PackageCalculations
 
         double CalculateChargers(int peektime, int duration,bool isLocal)
         {
+            double peekTimeInMInutes = (double)peektime / 60;
+            double OffpeekTimeInMInutes = (double)(duration - peektime) / 60;
+
             if (isLocal)
             {
-                double peekCharges = peektime/60 * packageA.GetPeekLocalCharges();
-                double OffpeekCharges = (duration-peektime) / 60 * packageA.GetOffPeekLocalCharges();
-                if (peektime % 60 != 0)
-                {
-                    peekCharges = peekCharges + packageA.GetPeekLocalCharges();
-                }
-                if ((duration - peektime) % 60 != 0)
-                {
-                    peekCharges = peekCharges + packageA.GetOffPeekLocalCharges();
-                }
+
+                double peekCharges = Math.Ceiling(peekTimeInMInutes) * packageA.GetPeekLocalCharges();
+                double OffpeekCharges = Math.Ceiling(OffpeekTimeInMInutes) * packageA.GetOffPeekLocalCharges();
+             
                 return peekCharges + OffpeekCharges;
             }
             else
             {
-                double peekCharges = peektime/60 * packageA.GetPeekLongDistanceCharges();
-                double OffpeekCharges = (duration - peektime)/60 * packageA.GetOffPeekLongDistanceCharges();
-                if (peektime % 60 != 0)
-                {
-                    peekCharges = peekCharges + packageA.GetPeekLongDistanceCharges();
-                }
-                if ((duration - peektime) % 60 != 0)
-                {
-                    peekCharges = peekCharges + packageA.GetOffPeekLongDistanceCharges();
-                }
+                double peekCharges = Math.Ceiling(peekTimeInMInutes) * packageA.GetPeekLongDistanceCharges();
+                double OffpeekCharges = Math.Ceiling(OffpeekTimeInMInutes) * packageA.GetOffPeekLongDistanceCharges();
+               
                 return peekCharges + OffpeekCharges;
             }
         }
