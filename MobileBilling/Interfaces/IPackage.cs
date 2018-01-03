@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace MobileBilling.PackageCalculations
 {
-   public abstract class Package
+   interface IPackage
     {
-        public abstract double packagechargersCalculation(CDR call);
+        double packagechargersCalculation(CDR call);
 
     }
 }

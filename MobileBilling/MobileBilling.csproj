@@ -43,11 +43,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BillingEngine.cs" />
+    <Compile Include="MobileCharges\PackageACharges.cs" />
+    <Compile Include="MobileCharges\PackageBCharges.cs" />
     <Compile Include="Models\Bill.cs" />
     <Compile Include="Models\CallDetails.cs" />
     <Compile Include="Models\CDR.cs" />
     <Compile Include="Models\Customer.cs" />
-    <Compile Include="PackageCalculations\Package.cs" />
+    <Compile Include="Determinations.cs" />
+    <Compile Include="Interfaces\IPackage.cs" />
     <Compile Include="PackageCalculations\PackageA.cs" />
     <Compile Include="PackageCalculations\PackageB.cs" />
     <Compile Include="Program.cs" />

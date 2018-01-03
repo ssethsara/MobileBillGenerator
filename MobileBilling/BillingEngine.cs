@@ -12,20 +12,7 @@ namespace MobileBilling
     {
         Customer customer;
         List<CDR> listOfCalls = new List<CDR>();
-        TimeSpan peakTimeStart = new TimeSpan(08, 00, 00);
-        TimeSpan peakTimeEnd = new TimeSpan(20, 00, 00);
-        int packageA_PeakLocalCharge = 3;
-        int packageA_PeakLongDistCharge = 5;
-        int packageA_OffpeakLocalCharge = 2;
-        int packageA_OffpeakLongDistCharge = 4;
-
-
-        int packageB_PeakLocalCharge = 4;
-        int packageB_PeakLongDistCharge = 6;
-        int packageB_OffpeakLocalCharge = 3;
-        int packageB_OffpeakLongDistCharge = 5;
-
-
+     
 
         double taxRate = 0.2;
 
@@ -68,7 +55,6 @@ namespace MobileBilling
                     totalCharge = totalCharge + calculatedCharge;
                     CallDetails detail = new CallDetails(call.GetStartTime(), call.GetDuration(), call.GetRecieveNumber(), calculatedCharge);
                     customerBill.SetCallDetails(detail);
-
                 }
             }
             customerBill.SetTotalCallChagers(totalCharge);
@@ -78,20 +64,24 @@ namespace MobileBilling
             return customerBill;
         }
 
+
+
         double CalculateCharges(CDR call)
         {
             if (customer.getPackage() == 'A')
             {
-                Package pk = new PackageA();
+                IPackage pk = new PackageA();
                    return pk.packagechargersCalculation(call);
             }
             else if (customer.getPackage() == 'B')
             {
-                Package pk = new PackageB();
+                IPackage pk = new PackageB();
                 return pk.packagechargersCalculation(call);
             }
             return 0;
         }
+
+
 
         double CalculateTax(double totalCallCharge,double rental)
         {
