@@ -15,12 +15,10 @@ namespace MobileBilling
             BillingEngine _but = new BillingEngine();
 
             //Arrange
-            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'B', new DateTime(17, 12, 23));
-            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(19, 30, 00), 60);
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(7, 59, 00), (60 * 4));
 
-            double totalCharge = 100 + (4 * 0.5) + (3 * 0.5);
-            double tax = totalCharge * 0.2;
-            double expected = totalCharge + tax;
+       
             //Act
             _but.Generate();
             //Asser

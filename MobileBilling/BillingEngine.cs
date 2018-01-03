@@ -1,4 +1,5 @@
 ﻿using MobileBilling.Models;
+using MobileBilling.PackageCalculations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,115 +78,20 @@ namespace MobileBilling
             return customerBill;
         }
 
-
-
-
-
         double CalculateCharges(CDR call)
         {
-            int durationSec = call.GetDuration();
-            int durationMin= durationSec / 60;
-            if ((durationSec % 60) !=0)
-            {
-                durationMin++;
-            }
             if (customer.getPackage() == 'A')
             {
-                if (CheckIsLocalCall(call.GetSubscribeNumber(), call.GetRecieveNumber()))
-                {
-                    return CheckPeakTimePackageA(call.GetStartTime(), durationMin, true);
-                }
-                else
-                {
-                    return CheckPeakTimePackageA(call.GetStartTime(), durationMin, false);
-                }
+                Package pk = new PackageA();
+                   return pk.packagechargersCalculation(call);
             }
             else if (customer.getPackage() == 'B')
             {
-                if (CheckIsLocalCall(call.GetSubscribeNumber(), call.GetRecieveNumber()))
-                {
-                    return CheckPeakTimePackageB(call.GetStartTime(), durationSec, true);
-                }
-                else
-                {
-                    return CheckPeakTimePackageB(call.GetStartTime(), durationSec, false);
-                }
+                Package pk = new PackageB();
+                return pk.packagechargersCalculation(call);
             }
             return 0;
-
         }
-
-        Boolean CheckIsLocalCall(string subscriberNumber,string recieverNumber)
-        {
-            string subscribersFirstThreeDigits = subscriberNumber.Split('-')[0];
-            string recieversFirstThreeDigits = recieverNumber.Split('-')[0];
-
-            if (subscribersFirstThreeDigits== recieversFirstThreeDigits)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        bool CheckPeakTime(TimeSpan calledTime)
-        {
-                if (calledTime < peakTimeEnd && calledTime >= peakTimeStart)
-                {
-                    return true;
-                }
-            return false;
-        }
-
-
-        double CheckPeakTimePackageA(TimeSpan calledTime, int durationMin, Boolean localCall)
-        {
-            double charges = 0;
-            for (int a = 0; a < durationMin; a++)
-            {
-                if (CheckPeakTime(calledTime))
-                {
-                    if (localCall)
-                        charges = charges + packageA_PeakLocalCharge;
-                    else
-                        charges = charges + packageA_PeakLongDistCharge;
-                }
-                else
-                {
-                    if (localCall)
-                        charges = charges + packageA_OffpeakLocalCharge;
-                    else
-                        charges = charges + packageA_OffpeakLongDistCharge;
-                }
-                calledTime = calledTime + new TimeSpan(0, 1, 0);
-            }
-            return charges;
-        }
-
-
-        double CheckPeakTimePackageB(TimeSpan calledTime, int durationSec, Boolean localCall)
-        {
-            double charges = 0;
-            for (int a = 0; a < durationSec; a++)
-            {
-                if (CheckPeakTime(calledTime))
-                {
-                    if (localCall)
-                        charges = charges + (double)packageB_PeakLocalCharge /60;
-                    else
-                        charges = charges + (double)packageB_PeakLongDistCharge / 60;
-                }
-                else
-                {
-                    if (localCall)
-                        charges = charges + (double)packageB_OffpeakLocalCharge / 60;
-                    else
-                        charges = charges + (double)packageB_OffpeakLongDistCharge / 60;
-                }
-                calledTime = calledTime + new TimeSpan(0, 0, 1);
-            }
-            return Math.Round(charges,1);
-        }
-
 
         double CalculateTax(double totalCallCharge,double rental)
         {

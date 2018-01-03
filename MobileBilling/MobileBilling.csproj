@@ -47,6 +47,9 @@
     <Compile Include="Models\CallDetails.cs" />
     <Compile Include="Models\CDR.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="PackageCalculations\Package.cs" />
+    <Compile Include="PackageCalculations\PackageA.cs" />
+    <Compile Include="PackageCalculations\PackageB.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
