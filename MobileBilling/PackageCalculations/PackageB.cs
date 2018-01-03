@@ -10,24 +10,9 @@ namespace MobileBilling.PackageCalculations
 {
     class PackageB: IPackage
     {
-
-        Determinations check = new Determinations();
-
-        TimeSpan peakTimeStart = new TimeSpan(08, 00, 00);
-        TimeSpan peakTimeEnd = new TimeSpan(20, 00, 00);
-
         PackageBCharges packageB = new PackageBCharges();
 
-        public double packagechargersCalculation(CDR call)
-        {
-            int peaktime = check.PeekCallduraion(call);
-            bool isLocal = check.IsLocalCall(call.GetSubscribeNumber(), call.GetRecieveNumber());
-            double chargers = CalculateChargers(peaktime, call.GetDuration(), isLocal);
-            return chargers;
-        }
-
-
-        double CalculateChargers(int peektime, int duration, bool isLocal)
+        public double CalculateChargers(int peektime, int duration, bool isLocal)
         {
             if (isLocal)
             {

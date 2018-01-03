@@ -12,7 +12,8 @@ namespace MobileBilling
     {
         Customer customer;
         List<CDR> listOfCalls = new List<CDR>();
-     
+        Determinations check = new Determinations();
+        IPackage pk;
 
         double taxRate = 0.2;
 
@@ -42,16 +43,18 @@ namespace MobileBilling
         }
 
 
+
         public Bill Generate()
         {
             Bill customerBill = new Bill(customer);
+            CheckPackageType();
             customerBill.SetRental(100);
             double totalCharge = 0;
             foreach (var call in listOfCalls)
             {
                 if (call.GetSubscribeNumber() == customer.getPhoneNumber())
                 {
-                    double calculatedCharge = CalculateCharges(call);
+                    double calculatedCharge = PackagechargersCalculation(call);
                     totalCharge = totalCharge + calculatedCharge;
                     CallDetails detail = new CallDetails(call.GetStartTime(), call.GetDuration(), call.GetRecieveNumber(), calculatedCharge);
                     customerBill.SetCallDetails(detail);
@@ -65,22 +68,28 @@ namespace MobileBilling
         }
 
 
+        public double PackagechargersCalculation(CDR call)
+        {
+            int peektime = check.PeekCallduraion(call);
+            bool isLocal = check.IsLocalCall(call.GetSubscribeNumber(), call.GetRecieveNumber());
+            double chargers = pk.CalculateChargers(peektime, call.GetDuration(), isLocal);
+            return chargers;
+        }
 
-        double CalculateCharges(CDR call)
+
+
+        void CheckPackageType()
         {
             if (customer.getPackage() == 'A')
             {
-                IPackage pk = new PackageA();
-                   return pk.packagechargersCalculation(call);
+                pk = new PackageA();    
             }
             else if (customer.getPackage() == 'B')
             {
-                IPackage pk = new PackageB();
-                return pk.packagechargersCalculation(call);
+                pk = new PackageB();
             }
-            return 0;
-        }
 
+        }
 
 
         double CalculateTax(double totalCallCharge,double rental)

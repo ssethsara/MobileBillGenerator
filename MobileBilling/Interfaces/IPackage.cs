@@ -9,7 +9,7 @@ namespace MobileBilling.PackageCalculations
 {
    interface IPackage
     {
-        double packagechargersCalculation(CDR call);
+        double CalculateChargers(int peektime, int duration, bool isLocal);
 
     }
 }

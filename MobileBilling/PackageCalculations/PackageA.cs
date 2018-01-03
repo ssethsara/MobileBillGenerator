@@ -11,32 +11,17 @@ namespace MobileBilling.PackageCalculations
 {
     class PackageA : IPackage
     {
-        Determinations check = new Determinations();
-
-        TimeSpan peakTimeStart = new TimeSpan(08, 00, 00);
-        TimeSpan peakTimeEnd = new TimeSpan(20, 00, 00);
         PackageACharges packageA = new PackageACharges();
 
-        public double packagechargersCalculation(CDR call)
+        public double CalculateChargers(int peektime, int duration,bool isLocal)
         {
-            int peektime= check.PeekCallduraion(call);
-            bool isLocal = check.IsLocalCall(call.GetSubscribeNumber(), call.GetRecieveNumber());
-            double chargers = CalculateChargers(peektime, call.GetDuration(), isLocal);
-            return chargers;
-        }
-
-
-
-        double CalculateChargers(int peektime, int duration,bool isLocal)
-        {
-            double peekTimeInMInutes = (double)peektime / 60;
-            double OffpeekTimeInMInutes = (double)(duration - peektime) / 60;
+            double peekTimeInMInutes = Math.Ceiling(((double)peektime / 60));
+            double OffpeekTimeInMInutes = Math.Ceiling((double)(duration - peektime) / 60);
 
             if (isLocal)
             {
-
-                double peekCharges = Math.Ceiling(peekTimeInMInutes) * packageA.GetPeekLocalCharges();
-                double OffpeekCharges = Math.Ceiling(OffpeekTimeInMInutes) * packageA.GetOffPeekLocalCharges();
+                double peekCharges = peekTimeInMInutes * packageA.GetPeekLocalCharges();
+                double OffpeekCharges = OffpeekTimeInMInutes * packageA.GetOffPeekLocalCharges();
              
                 return peekCharges + OffpeekCharges;
             }
