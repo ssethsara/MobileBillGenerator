@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobileBilling.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MobileBilling.MobileCharges
 {
-    public class PackageBCharges 
+    public class PackageBCharges: ICharges
     {
         int peekLocalCharge = 4;
         int peekLongDistCharge = 6;

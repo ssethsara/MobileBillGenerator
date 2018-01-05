@@ -43,8 +43,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BillingEngine.cs" />
+    <Compile Include="Interfaces\ICharges.cs" />
     <Compile Include="MobileCharges\PackageACharges.cs" />
     <Compile Include="MobileCharges\PackageBCharges.cs" />
+    <Compile Include="MobileCharges\PackageCCharges.cs" />
+    <Compile Include="MobileCharges\PackageDCharges.cs" />
     <Compile Include="Models\Bill.cs" />
     <Compile Include="Models\CallDetails.cs" />
     <Compile Include="Models\CDR.cs" />
@@ -53,6 +56,10 @@
     <Compile Include="Interfaces\IPackage.cs" />
     <Compile Include="PackageCalculations\PackageA.cs" />
     <Compile Include="PackageCalculations\PackageB.cs" />
+    <Compile Include="PackageCalculations\PackageC.cs" />
+    <Compile Include="PackageCalculations\PackageD.cs" />
+    <Compile Include="PackageCalculations\TimeCalculations\Minutes.cs" />
+    <Compile Include="PackageCalculations\TimeCalculations\Second.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -11,6 +11,7 @@ namespace MobileBilling
     public class BillingEngine
     {
         Customer customer;
+        Bill customerBill;
         List<CDR> listOfCalls = new List<CDR>();
         Determinations check = new Determinations();
         IPackage pk;
@@ -46,9 +47,8 @@ namespace MobileBilling
 
         public Bill Generate()
         {
-            Bill customerBill = new Bill(customer);
+             customerBill = new Bill(customer);
             CheckPackageType();
-            customerBill.SetRental(100);
             double totalCharge = 0;
             foreach (var call in listOfCalls)
             {
@@ -82,15 +82,26 @@ namespace MobileBilling
         {
             if (customer.getPackage() == 'A')
             {
-                pk = new PackageA();    
+                pk = new PackageA();
+                customerBill.SetRental(100);
             }
             else if (customer.getPackage() == 'B')
             {
                 pk = new PackageB();
+                customerBill.SetRental(100);
+            }
+            else if (customer.getPackage() == 'C')
+            {
+                pk = new PackageC();
+                customerBill.SetRental(300);
+            }
+            else if (customer.getPackage() == 'D')
+            {
+                pk = new PackageD();
+                customerBill.SetRental(300);
             }
 
         }
-
 
         double CalculateTax(double totalCallCharge,double rental)
         {

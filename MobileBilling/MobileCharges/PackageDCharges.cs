@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MobileBilling.MobileCharges
 {
-    public class PackageACharges : ICharges
+    class PackageDCharges: ICharges
     {
         int peekLocalCharge = 3;
         int peekLongDistCharge = 5;

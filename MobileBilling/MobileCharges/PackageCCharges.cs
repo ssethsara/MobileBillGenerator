@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace MobileBilling.MobileCharges
 {
-    public class PackageACharges : ICharges
+    class PackageCCharges: ICharges
     {
-        int peekLocalCharge = 3;
-        int peekLongDistCharge = 5;
-        int offpeekLocalCharge = 2;
-        int offpeekLongDistCharge = 4;
+        int peekLocalCharge = 2;
+        int peekLongDistCharge = 3;
+        int offpeekLocalCharge = 1;
+        int offpeekLongDistCharge = 2;
 
 
         public int GetOffPeekLocalCharges()
