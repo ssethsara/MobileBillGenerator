@@ -38,9 +38,17 @@ namespace MobileBilling.PackageCalculations
 
         public int PeekCallduraion(CDR call)
         {
-            int durationinSec = call.GetDuration();
+            int durationInSec = call.GetDuration();
             TimeSpan startTime = call.GetStartTime();
-            TimeSpan endTime = startTime + new TimeSpan(0, 0, durationinSec);
+            
+
+            return checkExeedingLimit(durationInSec, startTime);
+        }
+
+
+        int checkExeedingLimit(int durationInSec, TimeSpan startTime)
+        {
+            TimeSpan endTime = startTime + new TimeSpan(0, 0, durationInSec);
 
             if (PeakTime(startTime) > PeakTime(endTime))
             {
@@ -54,13 +62,14 @@ namespace MobileBilling.PackageCalculations
             }
             else if (PeakTime(startTime) == 1)
             {
-                return durationinSec;
+                
+                return durationInSec;
+
             }
             else
             {
                 return 0;
             }
-
         }
 
 

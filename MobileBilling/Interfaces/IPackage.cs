@@ -10,6 +10,7 @@ namespace MobileBilling.Interfaces
    interface IPackage
     {
         double CalculateChargers(int peektime, int duration, bool isLocal);
+        double GetRental();
 
     }
 }

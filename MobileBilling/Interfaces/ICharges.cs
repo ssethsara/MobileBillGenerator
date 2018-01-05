@@ -12,6 +12,7 @@ namespace MobileBilling.Interfaces
         int GetPeekLongDistanceCharges();
         int GetOffPeekLocalCharges();
         int GetOffPeekLongDistanceCharges();
+        double GetRental();
 
     }
 }

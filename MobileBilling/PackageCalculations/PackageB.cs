@@ -8,12 +8,17 @@ namespace MobileBilling.PackageCalculations
     class PackageB: IPackage
     {
         CalculationTime Charges = new CalculationTime();
+        ICharges package = new PackageBCharges();
 
         public double CalculateChargers(int peektime, int duration, bool isLocal)
         {
-            return Charges.CalculateInSeconds(peektime, duration, isLocal, new PackageBCharges());
+            return Charges.CalculateInSeconds(peektime, duration, isLocal, package);
         }
 
+        public double GetRental()
+        {
+            return package.GetRental();
+        }
 
     }
 }

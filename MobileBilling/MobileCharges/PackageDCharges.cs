@@ -14,6 +14,7 @@ namespace MobileBilling.MobileCharges
         int offpeekLocalCharge = 2;
         int offpeekLongDistCharge = 4;
 
+        double rental = 300;
 
         public int GetOffPeekLocalCharges()
         {
@@ -33,6 +34,10 @@ namespace MobileBilling.MobileCharges
         public int GetPeekLongDistanceCharges()
         {
             return peekLongDistCharge;
+        }
+        public double GetRental()
+        {
+            return rental;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace MobileBilling
         Bill customerBill;
         List<CDR> listOfCalls = new List<CDR>();
         Determinations check = new Determinations();
-        IPackage pk;
+        IPackage package;
 
         double taxRate = 0.2;
 
@@ -61,6 +61,7 @@ namespace MobileBilling
                     customerBill.SetCallDetails(detail);
                 }
             }
+            customerBill.SetRental(package.GetRental());
             customerBill.SetTotalCallChagers(totalCharge);
             customerBill.SetTax(CalculateTax(customerBill.GetTotalCallCharge(), customerBill.GetRental()));
             customerBill.SetAmount(CalculateTotalAmount(customerBill.GetTotalCallCharge(), customerBill.GetRental(), customerBill.GetTax()));
@@ -73,7 +74,7 @@ namespace MobileBilling
         {
             int peektime = check.PeekCallduraion(call);
             bool isLocal = check.IsLocalCall(call.GetSubscribeNumber(), call.GetRecieveNumber());
-            double chargers = pk.CalculateChargers(peektime, call.GetDuration(), isLocal);
+            double chargers = package.CalculateChargers(peektime, call.GetDuration(), isLocal);
             return chargers;
         }
 
@@ -83,23 +84,19 @@ namespace MobileBilling
         {
             if (customer.getPackage() == 'A')
             {
-                pk = new PackageA();
-                customerBill.SetRental(100);
+                package = new PackageA();
             }
             else if (customer.getPackage() == 'B')
             {
-                pk = new PackageB();
-                customerBill.SetRental(100);
+                package = new PackageB();
             }
             else if (customer.getPackage() == 'C')
             {
-                pk = new PackageC();
-                customerBill.SetRental(300);
+                package = new PackageC();
             }
             else if (customer.getPackage() == 'D')
             {
-                pk = new PackageD();
-                customerBill.SetRental(300);
+                package = new PackageD();
             }
 
         }
