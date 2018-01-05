@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MobileBilling.PackageCalculations
+namespace MobileBilling.Interfaces
 {
    interface IPackage
     {

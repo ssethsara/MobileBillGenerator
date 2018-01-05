@@ -58,8 +58,7 @@
     <Compile Include="PackageCalculations\PackageB.cs" />
     <Compile Include="PackageCalculations\PackageC.cs" />
     <Compile Include="PackageCalculations\PackageD.cs" />
-    <Compile Include="PackageCalculations\TimeCalculations\Minutes.cs" />
-    <Compile Include="PackageCalculations\TimeCalculations\Second.cs" />
+    <Compile Include="PackageCalculations\CalculationTime.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

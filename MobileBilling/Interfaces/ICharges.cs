@@ -8,12 +8,10 @@ namespace MobileBilling.Interfaces
 {
     public interface ICharges
     {
-         int GetOffPeekLocalCharges();
+        int GetPeekLocalCharges();
+        int GetPeekLongDistanceCharges();
+        int GetOffPeekLocalCharges();
+        int GetOffPeekLongDistanceCharges();
 
-         int GetOffPeekLongDistanceCharges();
-
-         int GetPeekLocalCharges();
-
-         int GetPeekLongDistanceCharges();
     }
 }
