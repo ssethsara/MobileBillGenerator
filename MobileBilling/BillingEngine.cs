@@ -48,8 +48,8 @@ namespace MobileBilling
 
         public Bill Generate()
         {
-             customerBill = new Bill(customer);
-            CheckPackageType();
+            customerBill = new Bill(customer);
+            package=CheckPackageType();
             double totalCharge = 0;
             foreach (var call in listOfCalls)
             {
@@ -80,24 +80,23 @@ namespace MobileBilling
 
 
 
-        void CheckPackageType()
+        IPackage CheckPackageType()
         {
-            if (customer.getPackage() == 'A')
+            switch (customer.getPackage())
             {
-                package = new PackageA();
+                case 'A':
+                    return new PackageA();
+                case 'B':
+                    return new PackageB();
+                case 'C':
+                    return new PackageC();
+                case 'D':
+                    return new PackageD();
+                default:
+                    throw new NullReferenceException();
             }
-            else if (customer.getPackage() == 'B')
-            {
-                package = new PackageB();
-            }
-            else if (customer.getPackage() == 'C')
-            {
-                package = new PackageC();
-            }
-            else if (customer.getPackage() == 'D')
-            {
-                package = new PackageD();
-            }
+
+
 
         }
 
