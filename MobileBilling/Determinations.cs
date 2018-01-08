@@ -36,12 +36,19 @@ namespace MobileBilling.PackageCalculations
         }
 
 
+
+
         public int PeekCallduraion(CDR call)
         {
             int durationInSec = call.GetDuration();
             TimeSpan startTime = call.GetStartTime();
-            
-
+            int Totalduration = 0;
+            int DayInSecond = 60 * 60 * 24;
+            if (durationInSec > DayInSecond)
+            {
+                Totalduration = Totalduration + checkExeedingLimit(24, startTime);
+                Totalduration = Totalduration + checkExeedingLimit(durationInSec - 24, startTime);
+            }
             return checkExeedingLimit(durationInSec, startTime);
         }
 
@@ -49,6 +56,7 @@ namespace MobileBilling.PackageCalculations
         int checkExeedingLimit(int durationInSec, TimeSpan startTime)
         {
             TimeSpan endTime = startTime + new TimeSpan(0, 0, durationInSec);
+            int twelveHours = 12 * 60 * 60;
 
             if (PeakTime(startTime) > PeakTime(endTime))
             {
@@ -62,17 +70,17 @@ namespace MobileBilling.PackageCalculations
             }
             else if (PeakTime(startTime) == 1)
             {
-                if (durationInSec > (12* 60 * 60))
+                if (durationInSec > twelveHours)
                 {
-                    return durationInSec-(12 * 60 * 60);
+                    return durationInSec - twelveHours;
                 }
                 return durationInSec;
             }
             else
             {
-                if (durationInSec > 12 * 60 * 60)
+                if (durationInSec > twelveHours)
                 {
-                    return (12 * 60 * 60);
+                    return twelveHours;
                 }
                 return 0;
             }
