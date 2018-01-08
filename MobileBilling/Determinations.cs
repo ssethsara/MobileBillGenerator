@@ -62,12 +62,18 @@ namespace MobileBilling.PackageCalculations
             }
             else if (PeakTime(startTime) == 1)
             {
-                
+                if (durationInSec > (12* 60 * 60))
+                {
+                    return durationInSec-(12 * 60 * 60);
+                }
                 return durationInSec;
-
             }
             else
             {
+                if (durationInSec > 12 * 60 * 60)
+                {
+                    return (12 * 60 * 60);
+                }
                 return 0;
             }
         }

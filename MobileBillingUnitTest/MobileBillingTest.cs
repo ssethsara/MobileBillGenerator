@@ -820,7 +820,45 @@ namespace MobileBillingUnitTest
         }
 
 
-      
+        [TestMethod]
+        public void OnGenerate_withPackageALocalCallFullDayCall_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(00, 00, 00), 60 * 60 * 24);
+
+            double totalCharge = 100 + 3*60*12 + 2*60*12;
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
+
+
+
+        [TestMethod]
+        public void OnGenerate_withPackageALocalCallExceedingLimits_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(07, 00, 00), 60 * 60 * 14);
+
+            double totalCharge = 100 + (3 * 60 * 12) + (2 * 60 * 2);
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
 
 
 
