@@ -1,9 +1,5 @@
 ﻿using MobileBilling.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MobileBilling.PackageCalculations
 {
@@ -13,20 +9,11 @@ namespace MobileBilling.PackageCalculations
         TimeSpan peakTimeStart;
         TimeSpan peakTimeEnd;
 
-
-       
-
-
-
-
         public void setPeekTime(TimeSpan peakTimeStart, TimeSpan peakTimeEnd)
         {
             this.peakTimeStart = peakTimeStart;
             this.peakTimeEnd = peakTimeEnd;
         }
-
-
-
 
         public int PeakTime(TimeSpan calledTime)
         {
@@ -36,7 +23,6 @@ namespace MobileBilling.PackageCalculations
             }
             return 0;
         }
-
 
         public bool IsLocalCall(string subscriberNumber, string recieverNumber)
         {
@@ -49,9 +35,6 @@ namespace MobileBilling.PackageCalculations
             }
             return false;
         }
-
-
-
 
         public int PeekCallduraion(CDR call)
         {

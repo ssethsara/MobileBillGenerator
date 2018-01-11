@@ -11,115 +11,89 @@ namespace MobileBilling.PackageCalculations
 {
     public class CalculationTime
     {
-        public double CalculateInMinutes(int peektime, int duration, bool isLocal,ICharges packageCharges)
+        ICharges packageCharges;
+
+        int freeLocalPeekMinutes;
+        int freeLocalOffPeekMinutes;
+        int freeLongDistancePeekMinutes;
+        int freeLongDistanceOffPeekMinutes;
+
+        public void SetFreeTimes()
+        {
+             freeLocalPeekMinutes = packageCharges.getFreeLocalPeekMinutes();
+             freeLocalOffPeekMinutes = packageCharges.getFreeLocalOffPeekMinutes();
+             freeLongDistancePeekMinutes = packageCharges.getFreeLongDistancePeekMinutes();
+             freeLongDistanceOffPeekMinutes = packageCharges.getFreeLongDistanceOffPeekMinutes();
+        }
+
+        public double CalculateInMinutes(int peekDuration, int duration, bool isLocal,ICharges packageCharges)
         {
 
+            this.packageCharges = packageCharges;
+            SetFreeTimes();
+
+            return CalculateFreeTime(peekDuration, duration, isLocal, true);
+        }
 
 
-            double peekTimeInMInutes = Math.Ceiling(((double)peektime / 60));
-            double OffpeekTimeInMInutes = Math.Ceiling((double)(duration - peektime) / 60);
+        public double CalculateInSeconds(double peekDuration, int duration, bool isLocal, ICharges packageCharges)
+        {
+            this.packageCharges = packageCharges;
+            SetFreeTimes();
 
-            int freeLocalPeekMinutes = packageCharges.getFreeLocalPeekMinutes();
-            int freeLocalOffPeekMinutes =packageCharges.getFreeLocalOffPeekMinutes();
-            int freeLongDistancePeekMinutes = packageCharges.getFreeLongDistancePeekMinutes();
-            int freeLongDistanceOffPeekMinutes = packageCharges.getFreeLongDistanceOffPeekMinutes();
+            return CalculateFreeTime(peekDuration, duration, isLocal, false);
+        }
 
-            
+
+        public double CalculateFreeTime(double peekDuration, int duration, bool isLocal, bool isInMinutes)
+        {
+            double peekTime = peekDuration;
+            double OffpeekTime = duration - peekDuration;
 
             if (isLocal)
             {
-                peekTimeInMInutes = peekTimeInMInutes - freeLocalPeekMinutes;
-                if (peekTimeInMInutes < 0)
-                {
-                    peekTimeInMInutes = 0;
-                }
+                peekTime = ReduceFreeTime(peekTime, freeLocalPeekMinutes, isInMinutes);
+                OffpeekTime = ReduceFreeTime(OffpeekTime, freeLocalOffPeekMinutes, isInMinutes);
 
-                OffpeekTimeInMInutes = OffpeekTimeInMInutes - freeLocalOffPeekMinutes;
-                if (OffpeekTimeInMInutes < 0)
-                {
-                    OffpeekTimeInMInutes = 0;
-                }
+                double peekCharges = peekTime * packageCharges.GetPeekLocalCharges();
+                double OffpeekCharges = OffpeekTime * packageCharges.GetOffPeekLocalCharges();
 
-                double peekCharges = peekTimeInMInutes * packageCharges.GetPeekLocalCharges();
-                double OffpeekCharges = OffpeekTimeInMInutes * packageCharges.GetOffPeekLocalCharges();
-
-                return peekCharges + OffpeekCharges;
+                if(isInMinutes)
+                    return peekCharges + OffpeekCharges;
+                else
+                    return (peekCharges + OffpeekCharges)/60;
             }
             else
             {
-                peekTimeInMInutes = peekTimeInMInutes - freeLongDistancePeekMinutes;
-                if (peekTimeInMInutes < 0)
-                {
-                    peekTimeInMInutes = 0;
-                }
+                peekTime = ReduceFreeTime(peekTime, freeLongDistancePeekMinutes, isInMinutes);
+                OffpeekTime = ReduceFreeTime(OffpeekTime, freeLongDistanceOffPeekMinutes, isInMinutes);
 
-                OffpeekTimeInMInutes = OffpeekTimeInMInutes - freeLongDistanceOffPeekMinutes;
-                if (OffpeekTimeInMInutes < 0)
-                {
-                    OffpeekTimeInMInutes = 0;
-                }
+                double peekCharges = peekTime * packageCharges.GetPeekLongDistanceCharges();
+                double OffpeekCharges = OffpeekTime * packageCharges.GetOffPeekLongDistanceCharges();
 
-
-                double peekCharges =peekTimeInMInutes * packageCharges.GetPeekLongDistanceCharges();
-                double OffpeekCharges = OffpeekTimeInMInutes * packageCharges.GetOffPeekLongDistanceCharges();
-
-                return peekCharges + OffpeekCharges;
+                if (isInMinutes)
+                    return peekCharges + OffpeekCharges;
+                else
+                    return (peekCharges + OffpeekCharges) / 60;
             }
         }
 
-      
-
-
-        public double CalculateInSeconds(int peektimeInSeconds, int duration, bool isLocal, ICharges packageCharges)
-        {
-            int freeLocalPeekSeconds = packageCharges.getFreeLocalPeekMinutes()*60;
-            int freeLocalOffPeekSeconds = packageCharges.getFreeLocalOffPeekMinutes() * 60;
-            int freeLongDistancePeekSeconds = packageCharges.getFreeLongDistancePeekMinutes() * 60;
-            int freeLongDistanceOffPeekSeconds = packageCharges.getFreeLongDistanceOffPeekMinutes() * 60;
-
-            int offpeekTimeInSeconds = duration - peektimeInSeconds;
-
-            if (isLocal)
-            {
-
-                peektimeInSeconds = peektimeInSeconds - freeLocalPeekSeconds;
-                if (peektimeInSeconds < 0)
-                {
-                    peektimeInSeconds = 0;
-                }
-
-                offpeekTimeInSeconds = offpeekTimeInSeconds - freeLocalOffPeekSeconds;
-                if (offpeekTimeInSeconds < 0)
-                {
-                    offpeekTimeInSeconds = 0;
-                }
-
-                double peekCharges = peektimeInSeconds * (double)packageCharges.GetPeekLocalCharges() / 60;
-                double OffpeekCharges = offpeekTimeInSeconds * (double)packageCharges.GetOffPeekLocalCharges() / 60;
-
-                return peekCharges + OffpeekCharges;
-            }
+          public double ReduceFreeTime(double time,int freeCharges,bool isInMinutes)
+          {
+            if (isInMinutes)
+                time = Math.Ceiling((double)time / 60);
             else
-            {
-                peektimeInSeconds = peektimeInSeconds - freeLongDistancePeekSeconds;
-                if (peektimeInSeconds < 0)
-                {
-                    peektimeInSeconds = 0;
-                }
+                freeCharges = freeCharges * 60;
 
-                offpeekTimeInSeconds = offpeekTimeInSeconds - freeLongDistanceOffPeekSeconds;
-                if (offpeekTimeInSeconds < 0)
-                {
-                    offpeekTimeInSeconds = 0;
-                }
+            time = time - freeCharges;
 
+            if (time < 0)
+                  time = 0;
 
-                double peekCharges = peektimeInSeconds * (double)packageCharges.GetPeekLongDistanceCharges() / 60;
-                double OffpeekCharges = offpeekTimeInSeconds * (double)packageCharges.GetOffPeekLongDistanceCharges() / 60;
+            return time;
+         }
 
-                return peekCharges + OffpeekCharges;
-            }
-        }
+        
 
     }
 }

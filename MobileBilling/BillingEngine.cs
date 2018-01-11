@@ -3,9 +3,7 @@ using MobileBilling.Models;
 using MobileBilling.PackageCalculations;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace MobileBilling
 {
@@ -44,8 +42,6 @@ namespace MobileBilling
             return call;
         }
 
-
-
         public Bill Generate()
         {
             customerBill = new Bill(customer);
@@ -70,7 +66,6 @@ namespace MobileBilling
             return customerBill;
         }
 
-
         public double PackagechargersCalculation(CDR call)
         {
             check.setPeekTime(package.GetPeekStartTime(), package.GetPeekEndTime());
@@ -80,8 +75,6 @@ namespace MobileBilling
             double chargers = package.CalculateChargers(peektime, call.GetDuration(), isLocal);
             return chargers;
         }
-
-
 
         IPackage CheckPackageType()
         {
@@ -98,9 +91,6 @@ namespace MobileBilling
                 default:
                     throw new NullReferenceException();
             }
-
-
-
         }
 
         double CalculateTax(double totalCallCharge,double rental)
@@ -108,11 +98,6 @@ namespace MobileBilling
             return ((totalCallCharge + rental) * taxRate);
         }
 
-
-        double CalculateTotalAmount(double totalCallCharge, double rental,double tax)
-        {
-            return totalCallCharge +rental+tax;
-        }
     }
 }
 
