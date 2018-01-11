@@ -13,6 +13,13 @@ namespace MobileBilling.Interfaces
         int GetOffPeekLocalCharges();
         int GetOffPeekLongDistanceCharges();
         double GetRental();
+        TimeSpan getPeekEndTime();
+        TimeSpan getPeekStartTime();
+        int getFreeLocalPeekMinutes();
+        int getFreeLocalOffPeekMinutes();
+        int getFreeLongDistancePeekMinutes();
+        int getFreeLongDistanceOffPeekMinutes();
+        double getDiscounts();
 
     }
 }

@@ -10,8 +10,23 @@ namespace MobileBilling.PackageCalculations
     public class Determinations
     {
 
-        TimeSpan peakTimeStart = new TimeSpan(08, 00, 00);
-        TimeSpan peakTimeEnd = new TimeSpan(20, 00, 00);
+        TimeSpan peakTimeStart;
+        TimeSpan peakTimeEnd;
+
+
+       
+
+
+
+
+        public void setPeekTime(TimeSpan peakTimeStart, TimeSpan peakTimeEnd)
+        {
+            this.peakTimeStart = peakTimeStart;
+            this.peakTimeEnd = peakTimeEnd;
+        }
+
+
+
 
         public int PeakTime(TimeSpan calledTime)
         {

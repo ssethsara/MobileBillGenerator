@@ -276,7 +276,7 @@ namespace MobileBillingUnitTest
 
             //Arrange
             _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
-            _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(08, 00, 00), 140);
+            _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(10, 00, 00), 140);
 
             double expected = 15;
             //Act
@@ -448,8 +448,8 @@ namespace MobileBillingUnitTest
             //Arrange
             _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), (60*3));
-            _but.SetCDR("071-0000000", "073-1111111", new TimeSpan(20, 00, 00), (60 * 5));
-            _but.SetCDR("071-0000000", "074-1111111", new TimeSpan(8, 00, 00), (60 * 3));
+            _but.SetCDR("071-0000000", "073-1111111", new TimeSpan(18, 00, 00), (60 * 5));
+            _but.SetCDR("071-0000000", "074-1111111", new TimeSpan(10, 00, 00), (60 * 3));
 
             double totalCharge = 100 + (3*3)+(4*5)+(5*3);
             double tax = totalCharge*0.2;
@@ -495,7 +495,7 @@ namespace MobileBillingUnitTest
 
             //Arrange
             _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
-            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(7, 59, 00), (60*4));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(9, 59, 00), (60*4));
 
             double totalCharge = 100 + (1*2)+ (3 * 3);
             double tax = totalCharge * 0.2;
@@ -517,7 +517,7 @@ namespace MobileBillingUnitTest
 
             //Arrange
             _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
-            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(19, 59, 00), (60 * 4));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(17, 59, 00), (60 * 4));
 
             double totalCharge = 100 + (1 * 3) + (3 * 2);
             double tax = totalCharge * 0.2;
@@ -540,7 +540,7 @@ namespace MobileBillingUnitTest
 
             //Arrange
             _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
-            _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(7, 59, 00), (60 * 4));
+            _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(9, 59, 00), (60 * 4));
 
             double totalCharge = 100 + (1 * 4) + (3 * 5);
             double tax = totalCharge * 0.2;
@@ -562,7 +562,7 @@ namespace MobileBillingUnitTest
 
             //Arrange
             _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
-            _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(19, 59, 00), (60 * 4));
+            _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(17, 59, 00), (60 * 4));
 
             double totalCharge = 100 + (1 * 5) + (3 * 4);
             double tax = totalCharge * 0.2;
@@ -627,7 +627,7 @@ namespace MobileBillingUnitTest
             _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'B', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(21, 00, 00), 60);
 
-            double totalCharge = 100 + 3;
+            double totalCharge = 100 ;
             double tax = totalCharge * 0.2;
             double expected = totalCharge + tax;
             //Act
@@ -666,7 +666,7 @@ namespace MobileBillingUnitTest
             _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'B', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(19, 59, 30), 60);
 
-            double totalCharge = 100 + (4*0.5)+(3*0.5);
+            double totalCharge = 100 + (4*0.5);
             double tax = totalCharge * 0.2;
             double expected = totalCharge + tax;
             //Act
@@ -707,7 +707,7 @@ namespace MobileBillingUnitTest
             _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'C', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(06, 00, 00), 60);
 
-            double totalCharge = 300 + (1 * 1);
+            double totalCharge = 300 + (1 * 0);
             double tax = totalCharge * 0.2;
             double expected = totalCharge + tax;
             //Act
@@ -768,7 +768,7 @@ namespace MobileBillingUnitTest
             _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'C', new DateTime(17, 12, 23));
             _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), 60);
 
-            double totalCharge = 300 + (2 * 1);
+            double totalCharge = 300 + (2 * 0);
             double tax = totalCharge * 0.2;
             double expected = totalCharge + tax;
             //Act
@@ -786,7 +786,7 @@ namespace MobileBillingUnitTest
 
             //Arrange
             _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'C', new DateTime(17, 12, 23));
-            _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(19, 30, 30), 60 * 60);
+            _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(17, 30, 30), 60 * 60);
 
             double totalCharge = 300 + (3 * 30) + (2 * 31);
             double tax = totalCharge * 0.2;
@@ -830,7 +830,8 @@ namespace MobileBillingUnitTest
 
             double totalCharge = 100 + 3*60*12 + 2*60*12;
             double tax = totalCharge * 0.2;
-            double expected = totalCharge + tax;
+            double discount = totalCharge * 0.4;
+            double expected = totalCharge + tax - discount;
             //Act
             Bill actual = _but.Generate();
             //Assert
@@ -851,7 +852,8 @@ namespace MobileBillingUnitTest
 
             double totalCharge = 100 + (3 * 60 * 12) + (2 * 60 * 2);
             double tax = totalCharge * 0.2;
-            double expected = totalCharge + tax;
+            double discount = totalCharge * 0.4;
+            double expected = totalCharge + tax - discount;
             //Act
             Bill actual = _but.Generate();
             //Assert
@@ -864,9 +866,247 @@ namespace MobileBillingUnitTest
 
 
 
+        [TestMethod]
+        public void OnGenerate_withNewPackageANewPeekDurationExeedingLimit_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(09, 00, 00), 60 * 60 * 14);
+
+            double totalCharge = 100 + (3 * 60 * 12) + (2 * 60 * 2);
+            double tax = totalCharge * 0.2;
+            double discount = totalCharge * 0.4;
+            double expected = totalCharge + tax-discount;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
+
+        [TestMethod]
+        public void OnGenerate_withNewPackageANewPeekDurationOffPeekToPeek_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(17, 00, 00), 60 * 60 * 2);
+
+            double totalCharge = 100 + (3 * 60 * 1) + (2 * 60 * 1);
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
 
 
 
+        [TestMethod]
+        public void OnGenerate_withNewPackageANewPeekDurationPeekToOffPeekLongDistanceCall_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(09, 00, 00), 60 * 60 * 14);
+
+            double totalCharge = 100 + (5 * 60 * 12) + (4 * 60 * 2);
+            double tax = totalCharge * 0.2;
+            double discount = totalCharge * 0.4;
+            double expected = totalCharge + tax - discount;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
+
+        [TestMethod]
+        public void OnGenerate_withNewPackageANewPeekDurationOffPeekToPeekLongDistanceCall_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(17, 00, 00), 60 * 60 * 2);
+
+            double totalCharge = 100 + (5 * 60 * 1) + (4 * 60 * 1);
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
+
+
+
+
+        [TestMethod]
+        public void OnGenerate_withNewPackageCNewPeekDurationExeedingLimit_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'C', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(08, 00, 00), 60 * 60 * 14);
+
+            double totalCharge = 300 + (2 * 60 * 12)-2 + (1 * 60 * 2)-1;
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
+
+        [TestMethod]
+        public void OnGenerate_withNewPackageCNewPeekDurationOffPeekToPeek_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'C', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(16, 00, 00), 60*60* 4);
+
+            double totalCharge = 300 + (60*2*2)+ (60 * 2 * 1)-3;
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
+
+
+
+        [TestMethod]
+        public void OnGenerate_withNewPackageCNewPeekDurationPeekToOffPeekLongDistanceCall_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'C', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(08, 00, 00), 60 * 60 * 3);
+
+            double totalCharge = 300 + (2 * 60 * 1) + (3 * 60 * 2);
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
+
+        [TestMethod]
+        public void OnGenerate_withNewPackageCNewPeekDurationOffPeekToPeekLongDistanceCall_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'C', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "072-1111111", new TimeSpan(17, 00, 00), 60 * 60 * 2);
+
+            double totalCharge = 300 + (3 * 60 * 1) + (2 * 60 * 1);
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
+
+        [TestMethod]
+        public void OnGenerate_withNewPackageBOffPeekFirstMinuteFree_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'B', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(23, 00, 00), (60 * 3));
+
+            double totalCharge = 100 + (3 * 2);
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
+
+
+        [TestMethod]
+        public void OnGenerate_withNewPackageCOffPeekFirstMinuteFree_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'C', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(23, 00, 00), (60 * 3));
+
+            double totalCharge = 300 + (1 * 2);
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
+
+
+        [TestMethod]
+        public void OnGenerate_withNewPackageCPeekFirstMinuteFree_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'C', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(12, 00, 00), (60 * 3));
+
+            double totalCharge = 300 + (2 * 2);
+            double tax = totalCharge * 0.2;
+            double expected = totalCharge + tax;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
+
+
+
+        [TestMethod]
+        public void OnGenerate_withNewPackageADiscount_ShouldAddAmount()
+        {
+
+            //Arrange
+            _but.AddCustomer("Supun Sethsara", "No:123,Colombo", "071-0000000", 'A', new DateTime(17, 12, 23));
+            _but.SetCDR("071-0000000", "071-1111111", new TimeSpan(09, 00, 00), 60 * 60 * 14);
+
+            double totalCharge = 100 + (3 * 60 * 12) + (2 * 60 * 2);
+            double tax = totalCharge * 0.2;
+            double discount = totalCharge * 0.4;
+            double expected = totalCharge + tax-discount;
+            //Act
+            Bill actual = _but.Generate();
+            //Assert
+            Assert.AreEqual(expected, actual.GetAmount());
+
+
+        }
 
 
 

@@ -47,9 +47,9 @@ namespace MobileBilling.Models
             this.rental = rental;
         }
 
-        public void SetAmount(double amount)
+        public void SetAmount()
         {
-            this.amount = amount;
+            this.amount = totalCallCharges+rental+tax-totalDiscount;
         }
 
         public void SetCallDetails(CallDetails callDetail)

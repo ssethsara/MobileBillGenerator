@@ -12,5 +12,10 @@ namespace MobileBilling.Interfaces
         double CalculateChargers(int peektime, int duration, bool isLocal);
         double GetRental();
 
+        TimeSpan GetPeekStartTime();
+
+        TimeSpan GetPeekEndTime();
+        double GetTotalDiscount(double totalCharges);
+
     }
 }

@@ -63,8 +63,9 @@ namespace MobileBilling
             }
             customerBill.SetRental(package.GetRental());
             customerBill.SetTotalCallChagers(totalCharge);
+            customerBill.SetTotalDiscount(package.GetTotalDiscount(totalCharge));
             customerBill.SetTax(CalculateTax(customerBill.GetTotalCallCharge(), customerBill.GetRental()));
-            customerBill.SetAmount(CalculateTotalAmount(customerBill.GetTotalCallCharge(), customerBill.GetRental(), customerBill.GetTax()));
+            customerBill.SetAmount();
 
             return customerBill;
         }
@@ -72,6 +73,8 @@ namespace MobileBilling
 
         public double PackagechargersCalculation(CDR call)
         {
+            check.setPeekTime(package.GetPeekStartTime(), package.GetPeekEndTime());
+
             int peektime = check.PeekCallduraion(call);
             bool isLocal = check.IsLocalCall(call.GetSubscribeNumber(), call.GetRecieveNumber());
             double chargers = package.CalculateChargers(peektime, call.GetDuration(), isLocal);

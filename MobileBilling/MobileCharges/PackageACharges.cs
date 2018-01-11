@@ -14,6 +14,18 @@ namespace MobileBilling.MobileCharges
         int offpeekLocalCharge = 2;
         int offpeekLongDistCharge = 4;
 
+        public TimeSpan peekTimeStart = new TimeSpan(10, 00, 00);
+        public TimeSpan peakTimeEnd = new TimeSpan(18, 00, 00);
+
+       
+        int freeLocalPeekMinutes = 0;
+        int freeLocalOffPeekMinutes = 0;
+        int freeLongDistancePeekMinutes = 0;
+        int freeLongDistanceOffPeekMinutes = 0;
+
+
+        double discounts = 0.4;
+
         double rental = 100;
 
         public int GetOffPeekLocalCharges()
@@ -40,5 +52,46 @@ namespace MobileBilling.MobileCharges
         {
             return rental;
         }
+
+        public TimeSpan getPeekStartTime()
+        {
+            return peekTimeStart;
+        }
+
+        public TimeSpan getPeekEndTime()
+        {
+            return peakTimeEnd;
+        }
+
+        public int getFreeLocalPeekMinutes()
+        {
+            return freeLocalPeekMinutes;
+        }
+
+        public int getFreeLocalOffPeekMinutes()
+        {
+            return freeLocalOffPeekMinutes;
+        }
+
+
+        public int getFreeLongDistancePeekMinutes()
+        {
+            return freeLongDistancePeekMinutes;
+        }
+
+
+        public int getFreeLongDistanceOffPeekMinutes()
+        {
+            return freeLongDistanceOffPeekMinutes;
+        }
+
+
+        public double getDiscounts()
+        {
+            return discounts;
+        }
+
+
+
     }
 }
